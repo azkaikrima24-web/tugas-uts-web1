@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking - BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>BookStore</h1>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="stok.html">Katalog Buku</a>
+        <a href="checkout.html">Pemesanan</a>
+        <a href="tracking.html">Tracking</a>
+        <a href="#" id="btnLogout">Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <h2>Informasi Pengiriman</h2>
+
+    <p>Masukkan nomor Delivery Order untuk melihat status pengiriman.</p>
+
+    <form id="formTracking">
+
+        <label for="nomorDO">Nomor Delivery Order</label>
+        <input
+            type="text"
+            id="nomorDO"
+            placeholder="Contoh: 20230012"
+            required
+        >
+
+        <button type="submit">Cari</button>
+
+    </form>
+
+    <div id="hasilTracking"></div>
+
+</main>
+
+<footer>
+    <p>&copy; Azka BookStore</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

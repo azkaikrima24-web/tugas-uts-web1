@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>BookStore</h1>
+    <p>Online Book Store</p>
+</header>
+
+<main class="container">
+    <h2>Login</h2>
+    <p>Silakan login untuk mengakses toko buku.</p>
+
+    <form id="formLogin">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Masukkan email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Masukkan password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <button class="btn-secondary" onclick="bukaModal('modalLupa')">
+        Lupa Password
+    </button>
+
+    <button class="btn-success" onclick="bukaModal('modalDaftar')">
+        Daftar
+    </button>
+</main>
+
+<!-- MODAL LUPA PASSWORD -->
+<div class="modal" id="modalLupa">
+    <div class="modal-content">
+        <span class="close" onclick="tutupModal('modalLupa')">&times;</span>
+
+        <h2>Lupa Password</h2>
+        <p>Masukkan email untuk bantuan pemulihan password.</p>
+
+        <form onsubmit="event.preventDefault(); alert('Permintaan pemulihan password berhasil dikirim (simulasi).'); tutupModal('modalLupa');">
+            <label>Email</label>
+            <input type="email" required placeholder="Masukkan email">
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL DAFTAR -->
+<div class="modal" id="modalDaftar">
+    <div class="modal-content">
+        <span class="close" onclick="tutupModal('modalDaftar')">&times;</span>
+
+        <h2>Daftar Pengguna</h2>
+
+        <form onsubmit="event.preventDefault(); alert('Pendaftaran berhasil (simulasi).'); tutupModal('modalDaftar');">
+            <label>Nama</label>
+            <input type="text" required placeholder="Nama lengkap">
+
+            <label>Email</label>
+            <input type="email" required placeholder="Email">
+
+            <label>Password</label>
+            <input type="password" required placeholder="Password">
+
+            <button type="submit">Daftar</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; Azka BookStore</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>BookStore</h1>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="stok.html">Katalog Buku</a>
+        <a href="checkout.html">Pemesanan</a>
+        <a href="tracking.html">Tracking</a>
+        <a href="#" id="btnLogout">Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <h3>Buku yang Dipilih</h3>
+
+    <div class="card" id="bukuCheckout">
+        <p>Silakan pilih buku dari katalog.</p>
+    </div>
+
+    <!-- Tombol Reset Pesanan -->
+    <button type="button" id="btnResetPesanan" class="btn-danger">
+        Reset Pesanan
+    </button>
+
+    <h2 class="judul-informasi-pemesanan">Informasi Pemesan</h2>
+
+    <form id="formCheckout">
+
+        <label for="namaPemesan">Nama Pemesan</label>
+        <input type="text" id="namaPemesan" required>
+
+        <label for="emailPemesan">Email</label>
+        <input type="email" id="emailPemesan" required>
+
+        <label for="alamat">Alamat Pengiriman</label>
+        <textarea id="alamat" rows="4" required></textarea>
+
+        <label for="pembayaran">Metode Pembayaran</label>
+        <select id="pembayaran" required>
+            <option value="">Pilih pembayaran</option>
+            <option value="Transfer Bank">Transfer Bank</option>
+            <option value="E-Wallet">E-Wallet</option>
+            <option value="COD">COD</option>
+        </select>
+
+        <button type="submit">Buat Pesanan</button>
+
+    </form>
+
+    <h2 class="judul-laporan-transaksi">
+        Laporan / History Transaksi
+    </h2>
+
+    <button onclick="tampilkanHistory()">
+        Lihat Transaksi Terakhir
+    </button>
+
+    <div id="historyTransaksi"></div>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 BookStore</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+
+// HISTORY TRANSAKSI
+function tampilkanHistory() {
+
+    const history = document.getElementById("historyTransaksi");
+
+    const pesanan = JSON.parse(
+        localStorage.getItem("pesananTerakhir")
+    );
+
+    if (!pesanan) {
+        history.innerHTML = "<p>Belum ada transaksi.</p>";
+        return;
+    }
+
+    history.innerHTML = `
+        <div class="card">
+            <h3>Transaksi Terakhir</h3>
+            <p>Nomor DO: ${pesanan.nomorDO}</p>
+            <p>Nama: ${pesanan.nama}</p>
+            <p>Buku: ${pesanan.buku}</p>
+            <p>Total: ${pesanan.total}</p>
+            <p>Pembayaran: ${pesanan.pembayaran}</p>
+        </div>
+    `;
+}
+
+</script>
+
+<!-- MODAL NOTIFIKASI -->
+<div class="modal-notifikasi" id="modalNotifikasi">
+    <div class="modal-notifikasi-content">
+
+        <h3 id="judulNotifikasi">Konfirmasi</h3>
+
+        <p id="pesanNotifikasi"></p>
+
+        <div id="tombolNotifikasi"></div>
+
+    </div>
+</div>
+
+<script>
+
+// Fungsi menutup modal
+function tutupNotifikasi() {
+    document.getElementById("modalNotifikasi").style.display = "none";
+}
+
+// Fungsi notifikasi biasa
+function tampilkanNotifikasi(judul, pesan) {
+
+    const modal = document.getElementById("modalNotifikasi");
+
+    document.getElementById("judulNotifikasi").textContent = judul;
+    document.getElementById("pesanNotifikasi").textContent = pesan;
+
+    document.getElementById("tombolNotifikasi").innerHTML = `
+        <button type="button" onclick="tutupNotifikasi()">OK</button>
+    `;
+
+    modal.style.display = "flex";
+}
+
+// Fungsi konfirmasi
+function tampilkanKonfirmasi(judul, pesan, callback) {
+
+    const modal = document.getElementById("modalNotifikasi");
+
+    document.getElementById("judulNotifikasi").textContent = judul;
+    document.getElementById("pesanNotifikasi").textContent = pesan;
+
+    const tombol = document.getElementById("tombolNotifikasi");
+
+    tombol.innerHTML = "";
+
+    const btnYa = document.createElement("button");
+    btnYa.textContent = "Ya";
+
+    btnYa.onclick = function() {
+        tutupNotifikasi();
+        callback(true);
+    };
+
+    const btnBatal = document.createElement("button");
+    btnBatal.textContent = "Batal";
+    btnBatal.className = "btn-secondary";
+
+    btnBatal.onclick = function() {
+        tutupNotifikasi();
+        callback(false);
+    };
+
+    tombol.appendChild(btnYa);
+    tombol.appendChild(btnBatal);
+
+    modal.style.display = "flex";
+}
+
+</script>
+
+</body>
+</html>
